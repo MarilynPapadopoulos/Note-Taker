@@ -4,6 +4,7 @@ const fs = require('fs');
 const { json } = require('express');
 //const uuid = require('uuid');
  const { v4: uuidv4 } = require('uuid');
+
 // uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 router.get('/api/notes', (req, res) => {
@@ -21,9 +22,12 @@ router.get('/api/notes', (req, res) => {
   });
 
   router.post('/api/notes', (req, res) => {
-    const id = uuidv4();
-      notes.push(req.body);
-  })
+    notes.id = uuidv4();
+    console.log(notes.id);
+    notes.id.push(req.body);
+
+    res.json(note.id);
+  });
 
 
 
