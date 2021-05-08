@@ -8,11 +8,15 @@ const { json } = require('express');
 // uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 router.get('/api/notes', (req, res) => {
-    console.log(notes);
+    console.log("line 11", notes);
    res.json(notes);
   });
 
   router.post('/api/notes', (req, res) => {
+    req.body.id = uuidv4();
+    console.log("notes.id", notes.id);
+    console.log('line18' , notes);
+    
     notes.push(req.body);
     fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
         if (err) throw err;
@@ -20,15 +24,6 @@ router.get('/api/notes', (req, res) => {
         res.json(notes);
     }) 
   });
-
-  router.post('/api/notes', (req, res) => {
-    notes.id = uuidv4();
-    console.log(notes.id);
-    notes.id.push(req.body);
-
-    res.json(note.id);
-  });
-
-
+  
 
  module.exports = router;
