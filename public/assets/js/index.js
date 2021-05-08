@@ -43,7 +43,6 @@ const saveNote = (note) =>
   });
 
 const deleteNote = (id) => {
-console.log(id);
   return fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
@@ -93,7 +92,6 @@ const handleNoteDelete = (e) => {
   deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
-    console.log("line 96", noteId);
   });
 };
 

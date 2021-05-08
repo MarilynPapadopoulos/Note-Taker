@@ -22,14 +22,12 @@ router.post('/api/notes', (req, res) => {
 });
 router.delete('/api/notes/:id', (req, res) => {
   const database = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
-  console.log(typeof database);
-
+ 
   for (let i = 0; i < database.length; i++) {
     if (database[i].id === req.params.id) {
       database.splice(i, 1);
     }
   }
-  console.log(database);
   fs.writeFile('./db/db.json', JSON.stringify(database), (err) => {
     if (err) throw err;
 
