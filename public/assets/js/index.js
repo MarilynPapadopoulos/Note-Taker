@@ -10,7 +10,6 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
-  console.log("line 13",noteTitle.value);
 }
 
 // Show an element
@@ -43,17 +42,16 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
+const deleteNote = (id) => {
+console.log(id);
+  return fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-
+}
 const renderActiveNote = () => {
-  console.log("line 55", activeNote);
-  console.log("line 55", activeNote.title);
   hide(saveNoteBtn);
 
   if (activeNote.id) {
@@ -61,14 +59,11 @@ const renderActiveNote = () => {
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
-    console.log("line 62", noteTitle.value);
-    
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
-    console.log("line 69", noteTitle.value);
+    noteTitle.value = '';
+    noteText.value = '';
   }
 };
 
@@ -98,6 +93,7 @@ const handleNoteDelete = (e) => {
   deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
+    console.log("line 96", noteId);
   });
 };
 
@@ -105,15 +101,13 @@ const handleNoteDelete = (e) => {
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
-  console.log(activeNote)
-  renderActiveNote(activeNote);
+  renderActiveNote();
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
-  activeNote = {title: '', text: ''};
-  renderActiveNote(activeNote);
-  console.log("line 116",activeNote);
+  activeNote = {};
+  renderActiveNote();
 };
 
 const handleRenderSaveBtn = () => {
