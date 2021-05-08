@@ -111,8 +111,9 @@ const handleNoteView = (e) => {
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
-  activeNote = {};
-  renderActiveNote();
+  activeNote = {title: '', text: ''};
+  renderActiveNote(activeNote);
+  console.log("line 116",activeNote);
 };
 
 const handleRenderSaveBtn = () => {
